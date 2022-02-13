@@ -4,7 +4,7 @@ Un ejemplo práctico de una aplicación estilo **CRUD**.
 
 Hecho enteramente con React, Node, Express y MongoDB (Mongoose para una mejor administración).
 
-Otras dependencias interesantes como  ***Textarea-autosize*** y ***Date-fns.***
+Se hizo uso de algunas dependencias interesantes como  ***Textarea-autosize*** y ***Date-fns.***
 
 Todo un desafío divertido 😊
 
