@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import LoadingBar from "./LoadingBar";
 
-const TodoForm = ({ submitHandler }) => {
+const TodoForm = ({ submitHandler, isUploading }) => {
   const { handleSubmit, register, reset } = useForm({
     defaultValues: {
       title: "",
@@ -26,6 +27,7 @@ const TodoForm = ({ submitHandler }) => {
           maxLength="38"
           spellCheck={false}
           required
+          disabled={isUploading}
         />
         <span></span>
         <label>Título</label>
@@ -40,11 +42,14 @@ const TodoForm = ({ submitHandler }) => {
           spellCheck={false}
           autoComplete="not"
           required
+          disabled={isUploading}
         />
         <span></span>
         <label>Descripción</label>
         <div className="group-input">
           <button onClick={handleReset}>Guardar</button>
+        {isUploading ? <LoadingBar type={"spinner-upload"} /> : null}
+
         </div>
       </div>
     </form>

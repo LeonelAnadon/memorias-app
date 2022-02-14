@@ -1,16 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,300;0,700;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,300;0,700;1,400&display=swap");
 
 :root {
   --red-button: #f45e61;
   --blue-color: #5264ae;
   --white-color: #f4f4f4;
   --black-color: #272727;
-  --magenta-color :#dd2a7b;
+  --magenta-color: #dd2a7b;
   --purple-color: #8134af;
 }
-
-
-
 
 body,
 html {
@@ -73,6 +70,7 @@ html {
 
 .container-input {
   background-color: #f4f4f4;
+  position: relative;
   /* height: 550px; */
   height: max-content;
   display: flex;
@@ -127,34 +125,33 @@ html {
   font-family: inherit;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 1.0rem;
+  font-size: 1rem;
   margin: 0 0 5px 0;
-  padding: 2px 2px ;       
+  padding: 2px 2px;
   display: block;
   width: 100%;
   resize: none;
   border: none;
-  overflow:visible;
+  overflow: visible;
 }
 .card_info > form > textarea:last-of-type {
   font-family: inherit;
   font-weight: 400;
   font-style: italic;
-  font-size: 1.0rem;
+  font-size: 1rem;
   margin: 0 0 5px 0;
-  padding: 2px 2px ;    
+  padding: 2px 2px;
   display: block;
   width: 100%;
   resize: none;
   border: none;
-  overflow:visible;
+  overflow: visible;
 }
 
 .editable:focus {
-  box-shadow: inset 0 0 0 1px #8134AF;
+  box-shadow: inset 0 0 0 1px #8134af;
   user-select: auto;
 }
-
 
 /* UPDATE BAR */
 .card_info > div {
@@ -180,7 +177,8 @@ html {
   cursor: pointer;
 }
 .card_info > div > img:nth-child(2):hover {
-  filter: invert(14%) sepia(90%) saturate(5372%) hue-rotate(347deg) brightness(83%) contrast(95%);
+  filter: invert(14%) sepia(90%) saturate(5372%) hue-rotate(347deg)
+    brightness(83%) contrast(95%);
 }
 
 /*EDIT ICON*/
@@ -197,7 +195,8 @@ html {
 }
 .card_info > div > img:nth-child(3):active {
   opacity: 1;
-  filter: invert(26%) sepia(65%) saturate(4393%) hue-rotate(318deg) brightness(92%) contrast(87%);
+  filter: invert(26%) sepia(65%) saturate(4393%) hue-rotate(318deg)
+    brightness(92%) contrast(87%);
 }
 /*SAVE ICON*/
 .card_info > div > img:nth-child(4) {
@@ -208,15 +207,16 @@ html {
   height: 20px;
   transition: all 1 ease-in-out;
 }
-.card_info > div > img:nth-child(4):hover{
+.card_info > div > img:nth-child(4):hover {
   opacity: 0.5;
 }
-.card_info > div > img:nth-child(4):active{
+.card_info > div > img:nth-child(4):active {
   opacity: 1;
-  filter: invert(26%) sepia(24%) saturate(4908%) hue-rotate(257deg) brightness(92%) contrast(96%);
+  filter: invert(26%) sepia(24%) saturate(4908%) hue-rotate(257deg)
+    brightness(92%) contrast(96%);
 }
 
-/* LOADING SPINNER CARD */ 
+/* LOADING SPINNER CARD */
 
 .card_info > div > div:nth-child(3) {
   position: absolute;
@@ -441,10 +441,35 @@ img + div > img {
 
 .spinner-circle {
   border: 1px solid transparent;
-  border-top-color: rgba(39,39,39, 0.8);
-  border-bottom-color: rgba(39,39,39, 1);
+  border-top-color: rgba(39, 39, 39, 0.8);
+  border-bottom-color: rgba(39, 39, 39, 1);
   border-radius: 50%;
-  animation: rotation .8s ease infinite;
+  animation: rotation 0.8s ease infinite;
+}
+.spinner-delete {
+  position: absolute;
+  height: 1rem;
+  width: 1rem;
+  left: 230px !important;
+  border: 1px solid transparent;
+  border-top-color: rgba(221, 42, 123, 1);
+  border-bottom-color: rgba(221, 42, 123, 1);
+  border-radius: 50%;
+  animation: rotation 0.6s ease infinite;
+}
+
+.spinner-upload {
+  width: 1.8rem;
+  height: 1.8rem;
+  position: absolute;
+  top: 31px;
+  left: 100px;
+  border: 2px solid transparent;
+  /* border-bottom-color: rgba(39, 39, 39, 1);
+  border-left-color: rgba(39, 39, 39, 1); */
+  border-radius: 50%;
+  z-index: 8;
+  animation: rotation 1s linear infinite;
 }
 
 .spinner-bar {
@@ -452,41 +477,49 @@ img + div > img {
   height: 0.5rem;
   overflow: hidden;
   position: absolute;
-  background: rgba(244, 244, 244, .25);
+  background: rgba(244, 244, 244, 0.25);
 }
-.spinner-bar::before{
-  content: '';
+.spinner-bar::before {
+  content: "";
   position: absolute;
   left: -130%;
   width: 100%;
   height: 100%;
-  background-color: rgba(221, 42, 123, .7);
+  background-color: rgba(221, 42, 123, 0.7);
   animation: progress 1s ease infinite;
 }
 
-@keyframes rotation{
-  from{
+@keyframes rotation {
+  0% {
     transform: rotate(0deg);
+    border-bottom-color: rgba(129, 52, 175, 0.7);
   }
-  to{
+  50% {
     transform: rotate(360deg);
+    border-top-color: rgba(221, 42, 123, 0.7);
+  }
+  51% {
+    border-top-color: rgba(221, 42, 123, 0.7);
+  }
+  100% {
+    border-bottom-color: rgba(129, 52, 175, 0.7);
   }
 }
 
-@keyframes progress{
+@keyframes progress {
   0% {
     left: -130%;
-    background-color: rgba(221, 42, 123, .7);
+    background-color: rgba(221, 42, 123, 0.7);
   }
   50% {
     left: 130%;
-    background-color: rgba(221, 42, 123, .7);
+    background-color: rgba(221, 42, 123, 0.7);
   }
   51% {
-    background-color: rgba(129, 52, 175, .7)
+    background-color: rgba(129, 52, 175, 0.7);
   }
   100% {
-    background-color: rgba(129, 52, 175, .2)
+    background-color: rgba(129, 52, 175, 0.2);
   }
 }
 

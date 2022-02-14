@@ -21,13 +21,14 @@ const App = () => {
   const [response, setResponse] = useState({});
   const [isImgLoad, setIsImgLoad] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
   const [done, setDone] = useState("");
 
   //GET DATA!
 
   useEffect(() => {
     handleGetData();
-    console.log(data);
+    // console.log(data);
   }, []);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ const App = () => {
       getInputs?.data?.description &&
       getInputs?.img64
     ) {
+      setIsUploading(true)
       saveData();
     }
   }, [getInputs]);
@@ -75,9 +77,10 @@ const App = () => {
     console.log("in save");
     try {
       const payload = getInputs;
-      const response = await api.post("/", payload);
+      const response = await api.post("/save", payload);
       setResponse(response);
-      console.log(response);
+      setIsUploading(false);
+      // console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -90,9 +93,9 @@ const App = () => {
   const deleteData = async (id) => {
     console.log("in delete");
     try {
-      const response = await api.delete(`/${id}`);
+      const response = await api.delete(`/delete/${id}`);
       setResponse(response);
-      console.log(response);
+      // console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -104,11 +107,11 @@ const App = () => {
   const editData = async (body) => {
     console.log("in edit");
     try {
-      const response = await api.put(`/${body.id}`, {
-        body: body
+      const response = await api.put(`/put/${body.id}`, {
+        body: body,
       });
       setResponse(response);
-      console.log(response);
+      // console.log(response);
     } catch (err) {
       console.log(err);
     }
@@ -152,7 +155,7 @@ const App = () => {
             multiple={false}
           />
         </div>
-        <TodoForm submitHandler={submitHandler} />
+        <TodoForm isUploading={isUploading} submitHandler={submitHandler} />
       </div>
     </div>
   );

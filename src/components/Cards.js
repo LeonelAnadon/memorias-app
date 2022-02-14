@@ -11,6 +11,7 @@ const Cards = ({ value, deleteData, editData, response }) => {
   const btnSubmit = useRef(null);
   const [readOnly, setReadOnly] = useState(false);
   const [isLoadingSpinner, setIsLoadingSpinner] = useState(false);
+  const [isLoadingSpinnerDelete, setIsLoadingSpinnerDelete] = useState(false);
   const { register, handleSubmit, setFocus } = useForm({
     defaultValues: {
       title: value.title ? value.title : "",
@@ -33,10 +34,16 @@ const Cards = ({ value, deleteData, editData, response }) => {
       setIsLoadingSpinner(false);
     }
   }, [response]);
-  useEffect(() => {
-    console.log(isLoadingSpinner)
-  }, [isLoadingSpinner])
 
+  useEffect(() => {
+    if (response?.data?.deletedCount === 1 && response?.status === 200) {
+      setIsLoadingSpinnerDelete(false);
+    }
+  }, [response]);
+
+  useEffect(() => {
+    console.log(isLoadingSpinner);
+  }, [isLoadingSpinner]);
 
   const handleEdit = (evt) => {
     if (evt.target.id === "edit") {
@@ -52,6 +59,7 @@ const Cards = ({ value, deleteData, editData, response }) => {
 
   const handleDelete = () => {
     deleteData(value._id);
+    setIsLoadingSpinnerDelete(true)
   };
 
   const submitPost = (data) => {
@@ -87,7 +95,17 @@ const Cards = ({ value, deleteData, editData, response }) => {
         </form>
         <div>
           <DateTag createdAt={value.createdAt} />
-          <img onClick={handleDelete} src={deleteImg} />
+          {!isLoadingSpinnerDelete ? (
+            <img onClick={handleDelete} src={deleteImg} />
+          ) : null}
+            {isLoadingSpinnerDelete ? (
+              <>
+            <img style={{visibility: "hidden"}} onClick={handleDelete} src={deleteImg} />
+            <LoadingBar type={"spinner-delete"} />
+              </>
+          ) : null}
+
+
           {!isLoadingSpinner ? (
             <>
               <img
@@ -106,6 +124,7 @@ const Cards = ({ value, deleteData, editData, response }) => {
           ) : null}
           {isLoadingSpinner ? <LoadingBar type={"spinner"} /> : null}
         </div>
+
         {/* <button onClick={() => setIsLoadingSpinner((state) => !state)}>CHANGE</button> */}
       </div>
     </div>

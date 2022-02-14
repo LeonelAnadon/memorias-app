@@ -9,6 +9,12 @@ const LoadingBar = ({type}) => {
     {
       type === "spinner" ? <div className='spinner-circle'/> : null
     }
+    {
+      type === "spinner-upload" ? <div className='spinner-upload'/> : null
+    }
+        {
+      type === "spinner-delete" ? <div className='spinner-delete'/> : null
+    }
     </>
   )
 }
